@@ -1,21 +1,30 @@
 #! octave -qf
 # a sample Octave program
 printf ("Boot\n");
+#setenv("GNUTERM","qt");
+#graphics_toolkit("fltk");
+#setenv ("GNUTERM", "X11");
 
 # read stereo file
+printf ("Reading input\n");
 stereo_in = audioread("piano2.wav");
 
 # to mono
+printf ("Converting to mono\n");
 mono_in = stereo_in(:,[1]) + stereo_in(:,[2]);
 
 mono_vector = mono_in';
 
-mono_out = [];
+printf ("Creating output\n");
+vector_size = length(mono_vector);
+mono_out = zeros(1,length(mono_vector));
 
-max_speed = 1/48000;
+max_speed = 1/1000;
 
+printf ("Processing in to out\n");
 last_value = 0;
-for sample = mono_vector,
+for i = 1:length(mono_vector),
+    sample = mono_vector(i);
     delta = abs(sample - last_value);
     compressed_value = sample;
     if delta > max_speed,
@@ -25,11 +34,13 @@ for sample = mono_vector,
             compressed_value = last_value - max_speed;
         endif
     endif
-    mono_out = [mono_out compressed_value];        
+    mono_out(i) = compressed_value;        
     last_value = compressed_value;
 endfor
 
+plot(mono_out);
 
+printf ("Saving output\n");
 # output
-audiowrite("p.wav",mono_vector,48000);
-audiowrite("p.wav",mono_out,48000);
+#audiowrite("p.wav",mono_vector,48000);
+#audiowrite("pee.wav",mono_out,48000);
