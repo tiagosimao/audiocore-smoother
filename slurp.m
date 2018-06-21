@@ -7,7 +7,7 @@ printf ("Boot\n");
 
 # read stereo file
 printf ("Reading input\n");
-stereo_in = audioread("piano2.wav");
+stereo_in = audioread("input.wav");
 
 # to mono
 printf ("Converting to mono\n");
@@ -42,5 +42,4 @@ plot(mono_out);
 
 printf ("Saving output\n");
 # output
-#audiowrite("p.wav",mono_vector,48000);
-#audiowrite("pee.wav",mono_out,48000);
+#audiowrite("output.wav",mono_out,48000);
