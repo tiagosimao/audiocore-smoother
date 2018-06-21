@@ -19,7 +19,7 @@ printf ("Creating output\n");
 vector_size = length(mono_vector);
 mono_out = zeros(1,length(mono_vector));
 
-max_speed = 1/1000;
+max_speed = 1/200;
 
 printf ("Processing in to out\n");
 last_value = 0;
@@ -38,8 +38,8 @@ for i = 1:length(mono_vector),
     last_value = compressed_value;
 endfor
 
-plot(mono_out);
+#plot(mono_out);
 
 printf ("Saving output\n");
 # output
-#audiowrite("output.wav",mono_out,48000);
+audiowrite("output.wav",mono_out,48000);
